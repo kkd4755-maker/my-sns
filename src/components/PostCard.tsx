@@ -1,4 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 import type { Post } from '../data/samplePosts'
 
 type PostCardProps = {
@@ -47,7 +52,37 @@ function PostCard({ post }: PostCardProps) {
         <span className="author">{post.author}</span>
       </div>
       <div className="photo">
-        <img src={post.images[0]} alt={`${post.author}님의 사진`} />
+        {post.images.length === 1 ? (
+          // 사진 1장: 몇 번째 표시도, 넘기기도 없음
+          <img src={post.images[0]} alt={`${post.author}님의 사진`} />
+        ) : (
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ el: '.dots' }}
+            // 마지막 다음에 첫 장. 2장은 Swiper 의 loop 가 제대로 안 돌아서 되감기(rewind)로
+            loop={post.images.length > 2}
+            rewind={post.images.length === 2}
+            slidesPerView={1.15}
+            spaceBetween={8}
+            speed={500}
+          >
+            {post.images.map((src, i) => (
+              <SwiperSlide key={src}>
+                <img
+                  src={src}
+                  alt={`${post.author}님의 사진 ${post.images.length}장 중 ${i + 1}번째`}
+                />
+                {/* 2/4 표시는 사진마다 붙여서 사진과 함께 움직임 */}
+                <span className="counter">
+                  {i + 1}/{post.images.length}
+                </span>
+              </SwiperSlide>
+            ))}
+            {/* 사진 아래 점. Swiper 가 이 안에 점을 채움 */}
+            <div className="dots" />
+          </Swiper>
+        )}
       </div>
       <div className="card-body">
         <p ref={contentRef} className={open ? 'content open' : 'content'}>
