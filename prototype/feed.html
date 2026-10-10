@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>멍냥일기 시안</title>
+  <style>
+    :root {
+      --bg: #17151b;
+      --phone: #1f1c24;
+      --card: #28242e;
+      --ink: #f4efe8;
+      --sub: #a69d94;
+      --line: #3b3641;
+      --point: #ffb45e;
+      --point-pink: #ff7eb3;
+      --point-line: linear-gradient(135deg, var(--point), var(--point-pink));
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .phone {
+      max-width: 430px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: var(--phone);
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 14px 16px;
+      background: var(--phone);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .top-bar h1 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .top-bar h1 svg {
+      width: 34px;
+      height: 34px;
+    }
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 20px 16px 40px;
+    }
+
+    /* 카드: 주황에서 분홍으로 번지는 테두리 */
+    .card {
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(var(--card), var(--card)) padding-box,
+        var(--point-line) border-box;
+      overflow: hidden;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+    }
+
+    /* 프로필: 같은 색 고리 */
+    .avatar {
+      flex: none;
+      width: 40px;
+      height: 40px;
+      padding: 2px;
+      border-radius: 50%;
+      background: var(--point-line);
+    }
+
+    .avatar img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--card);
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .photo {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: var(--line);
+    }
+
+    .photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .counter {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(23, 21, 27, 0.7);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      padding-top: 10px;
+    }
+
+    .dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .dots span.on { background: var(--point); }
+
+    .card-body { padding: 12px 16px 18px; }
+
+    .content {
+      margin: 0;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .content.open {
+      display: block;
+    }
+
+    .more {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--sub);
+      font: inherit;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .time {
+      margin-top: 6px;
+      color: var(--sub);
+      font-size: 13px;
+    }
+
+    /* 상태 */
+    .state-label {
+      margin: 8px 4px -8px;
+      color: var(--sub);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 12px;
+      border: 2px dashed rgba(255, 180, 94, 0.45);
+      border-radius: var(--radius);
+      color: var(--sub);
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .state svg {
+      width: 56px;
+      height: 56px;
+    }
+
+    .paws { display: flex; gap: 6px; }
+
+    .paws span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--point);
+    }
+
+    .paws span:nth-child(2) { opacity: 0.6; }
+    .paws span:nth-child(3) { opacity: 0.3; }
+
+    .retry {
+      padding: 8px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--point-line);
+      color: #17151b;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- 웰시코기 그림 부품 (화면에는 안 보임) -->
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <g id="corgi-face">
+        <!-- 귀 -->
+        <path d="M38 100 L50 18 Q56 10 64 18 L98 72 Z" fill="#e8913a" />
+        <path d="M162 100 L150 18 Q144 10 136 18 L102 72 Z" fill="#e8913a" />
+        <path d="M54 84 L59 36 L86 72 Z" fill="#f6c2a8" />
+        <path d="M146 84 L141 36 L114 72 Z" fill="#f6c2a8" />
+        <!-- 얼굴 -->
+        <ellipse cx="100" cy="118" rx="72" ry="62" fill="#e8913a" />
+        <!-- 이마의 흰 줄과 주둥이 -->
+        <path d="M92 58 Q100 54 108 58 L116 114 Q100 120 84 114 Z" fill="#fff6ea" />
+        <ellipse cx="100" cy="146" rx="50" ry="34" fill="#fff6ea" />
+        <!-- 볼 -->
+        <ellipse cx="54" cy="138" rx="12" ry="8" fill="#ff8fa3" opacity="0.5" />
+        <ellipse cx="146" cy="138" rx="12" ry="8" fill="#ff8fa3" opacity="0.5" />
+        <!-- 코와 입 -->
+        <ellipse cx="100" cy="132" rx="11" ry="8" fill="#3a2a22" />
+        <path d="M100 139 Q100 150 89 150 M100 139 Q100 150 111 150" stroke="#3a2a22" stroke-width="3" fill="none" stroke-linecap="round" />
+      </g>
+      <symbol id="corgi-happy" viewBox="0 0 200 200">
+        <use href="#corgi-face" />
+        <circle cx="72" cy="112" r="8" fill="#2b1d17" />
+        <circle cx="128" cy="112" r="8" fill="#2b1d17" />
+        <circle cx="75" cy="109" r="2.5" fill="#fff" />
+        <circle cx="131" cy="109" r="2.5" fill="#fff" />
+        <path d="M94 151 Q100 168 106 151 Z" fill="#ff7a8a" />
+      </symbol>
+      <symbol id="corgi-sleepy" viewBox="0 0 200 200">
+        <use href="#corgi-face" />
+        <path d="M62 112 Q72 121 82 112 M118 112 Q128 121 138 112" stroke="#2b1d17" stroke-width="4" fill="none" stroke-linecap="round" />
+      </symbol>
+      <symbol id="corgi-oops" viewBox="0 0 200 200">
+        <use href="#corgi-face" />
+        <circle cx="72" cy="114" r="7" fill="#2b1d17" />
+        <circle cx="128" cy="114" r="7" fill="#2b1d17" />
+        <path d="M60 100 L82 93 M140 100 L118 93" stroke="#2b1d17" stroke-width="4" stroke-linecap="round" />
+        <path d="M162 70 Q172 88 162 96 Q152 88 162 70 Z" fill="#7fc4ea" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="phone">
+    <header class="top-bar">
+      <h1>
+        멍냥일기
+        <svg viewBox="0 0 200 200" aria-hidden="true"><use href="#corgi-happy" /></svg>
+      </h1>
+    </header>
+
+    <main class="feed">
+      <!-- 카드 1: 사진 여러 장 -->
+      <article class="card">
+        <div class="card-head">
+          <span class="avatar"><img src="https://picsum.photos/seed/cocoavatar/80/80" alt="" /></span>
+          <span class="author">코코네집사</span>
+        </div>
+        <div class="photo">
+          <img src="https://picsum.photos/seed/cocowalk/600/600" alt="코코 산책 사진 1" />
+          <span class="counter">1/4</span>
+        </div>
+        <div class="dots" aria-label="4장 중 1번째 사진">
+          <span class="on"></span><span></span><span></span><span></span>
+        </div>
+        <div class="card-body">
+          <p class="content">비 그친 오후, 코코랑 공원 한 바퀴. 웅덩이만 보면 꼭 밟고 지나가요</p>
+          <div class="time">3시간 전</div>
+        </div>
+      </article>
+
+      <!-- 카드 2: 사진 1장 -->
+      <article class="card">
+        <div class="card-head">
+          <span class="avatar"><img src="https://picsum.photos/seed/boriavatar/80/80" alt="" /></span>
+          <span class="author">보리엄마</span>
+        </div>
+        <div class="photo">
+          <img src="https://picsum.photos/seed/borinap/600/600" alt="보리 낮잠 사진" />
+        </div>
+        <div class="card-body">
+          <p class="content">햇볕 드는 창가는 오늘도 보리 차지</p>
+          <div class="time">5시간 전</div>
+        </div>
+      </article>
+
+      <!-- 카드 3: 글이 긴 카드 -->
+      <article class="card">
+        <div class="card-head">
+          <span class="avatar"><img src="https://picsum.photos/seed/dubuavatar/80/80" alt="" /></span>
+          <span class="author">두부랑산책</span>
+        </div>
+        <div class="photo">
+          <img src="https://picsum.photos/seed/dububirthday/600/600" alt="두부 생일 사진 1" />
+          <span class="counter">1/2</span>
+        </div>
+        <div class="dots" aria-label="2장 중 1번째 사진">
+          <span class="on"></span><span></span>
+        </div>
+        <div class="card-body">
+          <p class="content">오늘은 두부가 우리 집에 온 지 딱 3년 되는 날이에요. 처음 데려왔을 때는 손바닥만 해서 계단도 못 올라갔는데, 이제는 소파 위까지 한 번에 뛰어올라요. 기념으로 강아지용 케이크를 사 왔더니 촛불 끄기도 전에 한 입 먹어 버렸어요. 앞으로도 지금처럼 건강하게만 지내 주라, 두부야.</p>
+          <button class="more" type="button">더 보기</button>
+          <div class="time">1일 전</div>
+        </div>
+      </article>
+
+      <!-- 상태 3개 (모양만) -->
+      <p class="state-label">상태 · 더 불러오는 중</p>
+      <div class="state">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><use href="#corgi-happy" /></svg>
+        <div class="paws"><span></span><span></span><span></span></div>
+        더 불러오는 중…
+      </div>
+
+      <p class="state-label">상태 · 더 없음</p>
+      <div class="state">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><use href="#corgi-sleepy" /></svg>
+        모든 게시물을 봤어요
+      </div>
+
+      <p class="state-label">상태 · 오류</p>
+      <div class="state">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><use href="#corgi-oops" /></svg>
+        불러오지 못했어요
+        <button class="retry" type="button">다시 시도</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // "더 보기"를 누르면 글 전체를 펼침
+    document.querySelectorAll('.more').forEach(function (button) {
+      button.addEventListener('click', function () {
+        button.previousElementSibling.classList.add('open');
+        button.remove();
+      });
+    });
+  </script>
+</body>
+</html>

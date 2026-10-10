@@ -1,0 +1,145 @@
+/* 값은 prototype/feed.html 에서 그대로 옮김. docs/요구사항.md 의 "디자인 규칙" 참고 */
+:root {
+  --bg: #17151b;
+  --phone: #1f1c24;
+  --card: #28242e;
+  --ink: #f4efe8;
+  --sub: #a69d94;
+  --line: #3b3641;
+  --point: #ffb45e;
+  --point-pink: #ff7eb3;
+  --point-line: linear-gradient(135deg, var(--point), var(--point-pink));
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.phone {
+  max-width: 430px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--phone);
+}
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 14px 16px;
+  background: var(--phone);
+  border-bottom: 1px solid var(--line);
+}
+
+.top-bar h1 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.top-bar h1 svg {
+  width: 34px;
+  height: 34px;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px 16px 40px;
+}
+
+/* 카드: 주황에서 분홍으로 번지는 테두리 */
+.card {
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    var(--point-line) border-box;
+  overflow: hidden;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+/* 프로필: 같은 색 고리 */
+.avatar {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--point-line);
+}
+
+.avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--line);
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body { padding: 12px 16px 18px; }
+
+.content {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.content.open {
+  display: block;
+}
+
+.more {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sub);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.time {
+  margin-top: 6px;
+  color: var(--sub);
+  font-size: 13px;
+}

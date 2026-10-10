@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>멍냥일기 시안 B</title>
+  <style>
+    :root {
+      --bg: #17151b;
+      --phone: #1f1c24;
+      --card: #28242e;
+      --ink: #f4efe8;
+      --sub: #a69d94;
+      --line: #3b3641;
+      --point: #ffb45e;
+      --point-soft: #5a4630;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .phone {
+      max-width: 430px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: var(--phone);
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 14px 16px;
+      background: var(--phone);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .top-bar h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .top-bar h1 span { color: var(--point); }
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 20px 16px 40px;
+    }
+
+    /* 카드 */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--point-soft);
+    }
+
+    .author {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .photo {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: var(--line);
+    }
+
+    .photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .counter {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(23, 21, 27, 0.7);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      padding-top: 10px;
+    }
+
+    .dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .dots span.on { background: var(--point); }
+
+    .card-body { padding: 12px 16px 18px; }
+
+    .content {
+      margin: 0;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .content.open {
+      display: block;
+    }
+
+    .more {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--sub);
+      font: inherit;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .time {
+      margin-top: 6px;
+      color: var(--sub);
+      font-size: 13px;
+    }
+
+    /* 상태 */
+    .state-label {
+      margin: 8px 4px -8px;
+      color: var(--sub);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 12px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      color: var(--sub);
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .paws { display: flex; gap: 6px; }
+
+    .paws span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--point);
+    }
+
+    .paws span:nth-child(2) { opacity: 0.6; }
+    .paws span:nth-child(3) { opacity: 0.3; }
+
+    .retry {
+      padding: 8px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--point);
+      color: #fff;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* 시안 B: 밤 모드 */
+    .retry { color: #17151b; }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <header class="top-bar">
+      <h1>멍냥일기<span>.</span></h1>
+    </header>
+
+    <main class="feed">
+      <!-- 카드 1: 사진 여러 장 -->
+      <article class="card">
+        <div class="card-head">
+          <img class="avatar" src="https://picsum.photos/seed/cocoavatar/80/80" alt="" />
+          <span class="author">코코네집사</span>
+        </div>
+        <div class="photo">
+          <img src="https://picsum.photos/seed/cocowalk/600/600" alt="코코 산책 사진 1" />
+          <span class="counter">1/4</span>
+        </div>
+        <div class="dots" aria-label="4장 중 1번째 사진">
+          <span class="on"></span><span></span><span></span><span></span>
+        </div>
+        <div class="card-body">
+          <p class="content">비 그친 오후, 코코랑 공원 한 바퀴. 웅덩이만 보면 꼭 밟고 지나가요</p>
+          <div class="time">3시간 전</div>
+        </div>
+      </article>
+
+      <!-- 카드 2: 사진 1장 -->
+      <article class="card">
+        <div class="card-head">
+          <img class="avatar" src="https://picsum.photos/seed/nabiavatar/80/80" alt="" />
+          <span class="author">나비엄마</span>
+        </div>
+        <div class="photo">
+          <img src="https://picsum.photos/seed/nabinap/600/600" alt="나비 낮잠 사진" />
+        </div>
+        <div class="card-body">
+          <p class="content">햇볕 드는 창가는 오늘도 나비 차지</p>
+          <div class="time">5시간 전</div>
+        </div>
+      </article>
+
+      <!-- 카드 3: 글이 긴 카드 -->
+      <article class="card">
+        <div class="card-head">
+          <img class="avatar" src="https://picsum.photos/seed/dubuavatar/80/80" alt="" />
+          <span class="author">두부랑산책</span>
+        </div>
+        <div class="photo">
+          <img src="https://picsum.photos/seed/dububirthday/600/600" alt="두부 생일 사진 1" />
+          <span class="counter">1/2</span>
+        </div>
+        <div class="dots" aria-label="2장 중 1번째 사진">
+          <span class="on"></span><span></span>
+        </div>
+        <div class="card-body">
+          <p class="content">오늘은 두부가 우리 집에 온 지 딱 3년 되는 날이에요. 처음 데려왔을 때는 손바닥만 해서 계단도 못 올라갔는데, 이제는 소파 위까지 한 번에 뛰어올라요. 기념으로 강아지용 케이크를 사 왔더니 촛불 끄기도 전에 한 입 먹어 버렸어요. 앞으로도 지금처럼 건강하게만 지내 주라, 두부야.</p>
+          <button class="more" type="button">더 보기</button>
+          <div class="time">1일 전</div>
+        </div>
+      </article>
+
+      <!-- 상태 3개 (모양만) -->
+      <p class="state-label">상태 · 더 불러오는 중</p>
+      <div class="state">
+        <div class="paws"><span></span><span></span><span></span></div>
+        더 불러오는 중…
+      </div>
+
+      <p class="state-label">상태 · 더 없음</p>
+      <div class="state">모든 게시물을 봤어요</div>
+
+      <p class="state-label">상태 · 오류</p>
+      <div class="state">
+        불러오지 못했어요
+        <button class="retry" type="button">다시 시도</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // "더 보기"를 누르면 글 전체를 펼침
+    document.querySelectorAll('.more').forEach(function (button) {
+      button.addEventListener('click', function () {
+        button.previousElementSibling.classList.add('open');
+        button.remove();
+      });
+    });
+  </script>
+</body>
+</html>

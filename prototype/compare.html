@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>멍냥일기 시안 비교</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      background: #d9d4cc;
+      font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    figure {
+      margin: 0;
+      flex: 0 1 400px;
+    }
+
+    figcaption {
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #2b2b2b;
+    }
+
+    figcaption span {
+      font-weight: 400;
+      color: #555;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 72px);
+      border: 0;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <figure>
+      <figcaption>확정 <span>B 기반 + 코기 그림 (feed.html)</span></figcaption>
+      <iframe src="feed.html" title="시안 A"></iframe>
+    </figure>
+    <figure>
+      <figcaption>B <span>밤 모드</span></figcaption>
+      <iframe src="feed-b.html" title="시안 B"></iframe>
+    </figure>
+    <figure>
+      <figcaption>C <span>산뜻한 민트</span></figcaption>
+      <iframe src="feed-c.html" title="시안 C"></iframe>
+    </figure>
+  </div>
+</body>
+</html>
