@@ -1,5 +1,4 @@
 import Feed from './components/Feed'
-import { samplePosts } from './data/samplePosts'
 import './App.css'
 
 function App() {
@@ -35,7 +34,7 @@ function App() {
           </svg>
         </h1>
       </header>
-      <Feed posts={samplePosts} />
+      <Feed />
     </div>
   )
 }

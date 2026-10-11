@@ -185,3 +185,53 @@ body {
   border-radius: 50%;
   background: rgba(23, 21, 27, 0.55);
 }
+
+/* 무한 스크롤 감지선. 피드 끝에 닿았는지 보는 보이지 않는 줄 (카드 사이 간격은 늘리지 않음) */
+.sentinel {
+  height: 1px;
+  margin-top: -24px;
+}
+
+/* 피드 맨 아래 상태 상자 (불러오는 중, 더 없음, 오류) */
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  border: 2px dashed rgba(255, 180, 94, 0.45);
+  border-radius: var(--radius);
+  color: var(--sub);
+  font-size: 15px;
+  text-align: center;
+}
+
+.state svg {
+  width: 56px;
+  height: 56px;
+}
+
+/* 불러오는 중 발자국 점 */
+.paws { display: flex; gap: 6px; }
+
+.paws span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--point);
+}
+
+.paws span:nth-child(2) { opacity: 0.6; }
+.paws span:nth-child(3) { opacity: 0.3; }
+
+.retry {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--point-line);
+  color: #17151b;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
