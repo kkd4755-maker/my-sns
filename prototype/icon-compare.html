@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>앱 아이콘 후보 비교</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: #17151b;
+      color: #f4efe8;
+      font-family: "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    p.note { margin: 0 0 24px; color: #a69d94; font-size: 14px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+      max-width: 860px;
+    }
+    .item {
+      padding: 18px 14px;
+      border-radius: 20px;
+      background: #1f1c24;
+      text-align: center;
+    }
+    .item .big { width: 140px; height: 140px; }
+    .home {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 14px;
+      margin: 14px 0 10px;
+      padding: 12px;
+      border-radius: 14px;
+      /* 휴대폰 홈 화면 배경처럼 */
+      background: linear-gradient(160deg, #3d5a80, #98c1d9);
+    }
+    .home figure { margin: 0; font-size: 11px; color: #fff; }
+    .home svg { display: block; width: 52px; height: 52px; margin-bottom: 4px; }
+    .item b { display: block; font-size: 17px; }
+    .item span { color: #a69d94; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="point" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffb45e" />
+        <stop offset="1" stop-color="#ff7eb3" />
+      </linearGradient>
+      <!-- 웃는 웰시코기 (prototype/feed.html 의 corgi-happy) -->
+      <g id="corgi">
+        <path d="M38 100 L50 18 Q56 10 64 18 L98 72 Z" fill="#e8913a" />
+        <path d="M162 100 L150 18 Q144 10 136 18 L102 72 Z" fill="#e8913a" />
+        <path d="M54 84 L59 36 L86 72 Z" fill="#f6c2a8" />
+        <path d="M146 84 L141 36 L114 72 Z" fill="#f6c2a8" />
+        <ellipse cx="100" cy="118" rx="72" ry="62" fill="#e8913a" />
+        <path d="M92 58 Q100 54 108 58 L116 114 Q100 120 84 114 Z" fill="#fff6ea" />
+        <ellipse cx="100" cy="146" rx="50" ry="34" fill="#fff6ea" />
+        <ellipse cx="54" cy="138" rx="12" ry="8" fill="#ff8fa3" opacity="0.5" />
+        <ellipse cx="146" cy="138" rx="12" ry="8" fill="#ff8fa3" opacity="0.5" />
+        <ellipse cx="100" cy="132" rx="11" ry="8" fill="#3a2a22" />
+        <path d="M100 139 Q100 150 89 150 M100 139 Q100 150 111 150" stroke="#3a2a22" stroke-width="3" fill="none" stroke-linecap="round" />
+        <circle cx="72" cy="112" r="8" fill="#2b1d17" />
+        <circle cx="128" cy="112" r="8" fill="#2b1d17" />
+        <circle cx="75" cy="109" r="2.5" fill="#fff" />
+        <circle cx="131" cy="109" r="2.5" fill="#fff" />
+        <path d="M94 151 Q100 168 106 151 Z" fill="#ff7a8a" />
+      </g>
+      <!-- 발바닥 -->
+      <g id="paw">
+        <ellipse cx="256" cy="318" rx="92" ry="78" />
+        <ellipse cx="146" cy="214" rx="38" ry="48" transform="rotate(-18 146 214)" />
+        <ellipse cx="214" cy="156" rx="38" ry="50" transform="rotate(-6 214 156)" />
+        <ellipse cx="298" cy="156" rx="38" ry="50" transform="rotate(6 298 156)" />
+        <ellipse cx="366" cy="214" rx="38" ry="48" transform="rotate(18 366 214)" />
+      </g>
+
+      <!-- A. 지금 아이콘 -->
+      <symbol id="icon-a" viewBox="0 0 512 512">
+        <rect width="512" height="512" rx="112" fill="#1f1c24" />
+        <use href="#corgi" transform="translate(56 64) scale(2)" />
+      </symbol>
+      <!-- B. 그라데이션 배경 -->
+      <symbol id="icon-b" viewBox="0 0 512 512">
+        <rect width="512" height="512" rx="112" fill="url(#point)" />
+        <use href="#corgi" transform="translate(56 64) scale(2)" />
+      </symbol>
+      <!-- C. 어두운 배경 + 그라데이션 고리 -->
+      <symbol id="icon-c" viewBox="0 0 512 512">
+        <rect width="512" height="512" rx="112" fill="#1f1c24" />
+        <circle cx="256" cy="262" r="196" fill="none" stroke="url(#point)" stroke-width="22" />
+        <use href="#corgi" transform="translate(106 108) scale(1.5)" />
+      </symbol>
+      <!-- D. 그라데이션 배경 + 흰 발바닥 -->
+      <symbol id="icon-d" viewBox="0 0 512 512">
+        <rect width="512" height="512" rx="112" fill="url(#point)" />
+        <use href="#paw" fill="#fff6ea" transform="translate(51 55) scale(0.8)" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <h1>앱 아이콘 후보</h1>
+  <p class="note">위는 크게, 아래는 휴대폰 홈 화면에 놓였을 때 크기예요.</p>
+
+  <div class="grid">
+    <div class="item">
+      <svg class="big"><use href="#icon-a" /></svg>
+      <div class="home">
+        <figure><svg><use href="#icon-a" /></svg>멍냥일기</figure>
+      </div>
+      <b>A. 지금 아이콘</b>
+      <span>밤 배경에 웃는 코기. 피드 화면과 같은 색</span>
+    </div>
+    <div class="item">
+      <svg class="big"><use href="#icon-b" /></svg>
+      <div class="home">
+        <figure><svg><use href="#icon-b" /></svg>멍냥일기</figure>
+      </div>
+      <b>B. 그라데이션 배경</b>
+      <span>주황→분홍 배경에 코기. 홈 화면에서 눈에 잘 띔</span>
+    </div>
+    <div class="item">
+      <svg class="big"><use href="#icon-c" /></svg>
+      <div class="home">
+        <figure><svg><use href="#icon-c" /></svg>멍냥일기</figure>
+      </div>
+      <b>C. 프로필 고리</b>
+      <span>밤 배경에 카드 테두리 같은 주황→분홍 고리</span>
+    </div>
+    <div class="item">
+      <svg class="big"><use href="#icon-d" /></svg>
+      <div class="home">
+        <figure><svg><use href="#icon-d" /></svg>멍냥일기</figure>
+      </div>
+      <b>D. 발바닥</b>
+      <span>그라데이션 배경에 흰 발바닥. 멍이·냥이 모두</span>
+    </div>
+  </div>
+</body>
+</html>
