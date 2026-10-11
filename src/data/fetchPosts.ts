@@ -1,4 +1,5 @@
-import { samplePosts, type Post } from './samplePosts'
+import { supabase } from '../lib/supabase'
+import type { Post } from './samplePosts'
 
 // 한 번에 가져오는 게시물 개수
 export const PAGE_SIZE = 10
@@ -9,11 +10,17 @@ export type PostPage = {
   hasMore: boolean
 }
 
-// 다음 10개 가져오기. offset 번째(0부터)부터 10개
-// 지금은 샘플에서 잘라 오고, 나중에(STEP 17) 이 함수 속만 Supabase 요청으로 바꿈
+// 다음 10개 가져오기. offset 번째(0부터)부터 10개를 Supabase 의 sns_posts 에서 최신순으로
 export async function fetchPosts(offset: number): Promise<PostPage> {
-  // 샘플은 순식간에 붙어서 "불러오는 중"이 안 보이므로 0.8초 기다림
-  await new Promise((resolve) => setTimeout(resolve, 800))
-  const posts = samplePosts.slice(offset, offset + PAGE_SIZE)
-  return { posts, hasMore: offset + PAGE_SIZE < samplePosts.length }
+  const { data, error } = await supabase
+    .from('sns_posts')
+    .select('id, author, content, images, created_at')
+    .order('created_at', { ascending: false })
+    // range(a, b): a번째부터 b번째까지(b 포함). 0~9, 10~19, …
+    .range(offset, offset + PAGE_SIZE - 1)
+    .overrideTypes<Post[], { merge: false }>()
+  // 실패하면 피드가 "불러오지 못했어요" 상태를 보여줌
+  if (error) throw error
+  // 10개보다 적게 오면 마지막 묶음이므로 "더 없음"
+  return { posts: data, hasMore: data.length === PAGE_SIZE }
 }

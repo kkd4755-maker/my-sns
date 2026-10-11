@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Supabase 주소와 키 (GitHub 에 올리지 않음)
+.env.local
